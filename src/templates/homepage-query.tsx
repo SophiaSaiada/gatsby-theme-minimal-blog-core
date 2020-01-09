@@ -12,8 +12,8 @@ export const query = graphql`
         date(formatString: "DD.MM.YYYY")
         banner {
           childImageSharp {
-            fluid {
-              src
+            fluid(maxWidth: 380, maxHeight: 380) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
