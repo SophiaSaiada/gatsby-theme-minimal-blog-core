@@ -10,6 +10,13 @@ export const query = graphql`
         slug
         title
         date(formatString: "DD.MM.YYYY")
+        banner {
+          childImageSharp {
+            fluid(maxWidth: 480, maxHeight: 270) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
         tags {
           name
           slug
