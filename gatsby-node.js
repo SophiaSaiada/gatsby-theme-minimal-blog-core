@@ -94,6 +94,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       banner: File @fileByRelativePath
       description: String
       lang: String
+      showAtHome: Boolean
     }
     
     type PostTag {
@@ -107,6 +108,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       title: String!
       excerpt(pruneLength: Int = 160): String!
       body: String!
+      lang: String
     }
     
     type MdxPost implements Node & Post {
@@ -122,11 +124,13 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       banner: File @fileByRelativePath
       description: String
       lang: String
+      showAtHome: Boolean
     }
     
     type MdxPage implements Node & Page {
       slug: String!
       title: String!
+      lang: String
       excerpt(pruneLength: Int = 140): String! @mdxpassthrough(fieldName: "excerpt")
       body: String! @mdxpassthrough(fieldName: "body")
     }
@@ -171,6 +175,7 @@ exports.onCreateNode = (
       urlName: node.frontmatter.urlName,
       tags: modifiedTags,
       banner: node.frontmatter.banner,
+      showAtHome: node.frontmatter.showAtHome || false,
       lang: node.frontmatter.lang || "he",
       description: node.frontmatter.description
     };
