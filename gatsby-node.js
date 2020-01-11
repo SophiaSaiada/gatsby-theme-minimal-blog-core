@@ -52,7 +52,11 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
     const [_, year, month, day] = source.date.match(/^(\d+)\-(\d+)\-(\d+)T/);
     const datePath = `${year}/${month}/${day}`;
     const urlNamePath = source.urlName ? "/" + source.urlName : "";
-    return `/${basePath}/${datePath}${urlNamePath}/`.replace(/\/\/+/g, `/`);
+    const langPath = source.lang == "he" ? "" : `${source.lang}/`;
+    return `/${basePath}/${datePath}${urlNamePath}/${langPath}`.replace(
+      /\/\/+/g,
+      `/`
+    );
   };
 
   createFieldExtension({
@@ -116,6 +120,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       tags: [PostTag]
       banner: File @fileByRelativePath
       description: String
+      lang: String
     }
     
     type MdxPage implements Node & Page {
@@ -165,6 +170,7 @@ exports.onCreateNode = (
       urlName: node.frontmatter.urlName,
       tags: modifiedTags,
       banner: node.frontmatter.banner,
+      lang: node.frontmatter.lang || "he",
       description: node.frontmatter.description
     };
 
@@ -314,4 +320,3 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     });
   }
 };
-  
