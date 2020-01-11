@@ -175,7 +175,7 @@ exports.onCreateNode = (
       urlName: node.frontmatter.urlName,
       tags: modifiedTags,
       banner: node.frontmatter.banner,
-      showAtHome: node.frontmatter.showAtHome || false,
+      showAtHome: node.frontmatter.showAtHome === false ? false : true,
       lang: node.frontmatter.lang || "he",
       description: node.frontmatter.description
     };
