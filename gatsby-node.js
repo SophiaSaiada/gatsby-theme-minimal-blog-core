@@ -93,6 +93,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       tags: [PostTag]
       banner: File @fileByRelativePath
       description: String
+      lang: String
     }
     
     type PostTag {
