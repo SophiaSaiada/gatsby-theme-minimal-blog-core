@@ -46,14 +46,12 @@ const mdxResolverPassthrough = fieldName => async (
 exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
   const { createTypes, createFieldExtension } = actions;
 
-  const { basePath } = withDefaults(themeOptions);
+  const { blogPath } = withDefaults(themeOptions);
 
   const slugify = source => {
-    const [_, year, month, day] = source.date.match(/^(\d+)\-(\d+)\-(\d+)T/);
-    const datePath = `${year}/${month}/${day}`;
     const urlNamePath = source.urlName ? "/" + source.urlName : "";
     const langPath = source.lang == "he" ? "" : `${source.lang}/`;
-    return `/${basePath}/${datePath}${urlNamePath}/${langPath}`.replace(
+    return `/${blogPath}/${urlNamePath}/${langPath}`.replace(
       /\/\/+/g,
       `/`
     );
