@@ -51,10 +51,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
   const slugify = source => {
     const urlNamePath = source.urlName ? "/" + source.urlName : "";
     const langPath = source.lang == "he" ? "" : `${source.lang}/`;
-    return `/${blogPath}/${urlNamePath}/${langPath}`.replace(
-      /\/\/+/g,
-      `/`
-    );
+    return `/${blogPath}/${urlNamePath}/${langPath}`.replace(/\/\/+/g, `/`);
   };
 
   createFieldExtension({
@@ -90,6 +87,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       timeToRead: Int!
       tags: [PostTag]
       banner: File @fileByRelativePath
+      css: File @fileByRelativePath
       description: String
       lang: String
       showAtHome: Boolean
@@ -120,6 +118,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       timeToRead: Int! @mdxpassthrough(fieldName: "timeToRead")
       tags: [PostTag]
       banner: File @fileByRelativePath
+      css: File @fileByRelativePath
       description: String
       lang: String
       showAtHome: Boolean
@@ -173,6 +172,7 @@ exports.onCreateNode = (
       urlName: node.frontmatter.urlName,
       tags: modifiedTags,
       banner: node.frontmatter.banner,
+      css: node.frontmatter.css,
       showAtHome: node.frontmatter.showAtHome === false ? false : true,
       lang: node.frontmatter.lang || "he",
       description: node.frontmatter.description
